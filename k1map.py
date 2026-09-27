@@ -128,18 +128,22 @@ def main():
 
     def wait_input(mode, timeout):
         t = time.time()
+        digital, digital_at = None, 0
         while timeout is None or time.time() - t < timeout:
             ax, bt, ht = state()
-            if mode != "stick":
-                for i, v in enumerate(bt):
-                    if v and f"b{i}" not in used: return f"b{i}"
-                for i, v in enumerate(ht):
-                    if v in (1, 2, 4, 8) and f"h{i}.{v}" not in used: return f"h{i}.{v}"
             if mode != "digital":
                 for i, v in enumerate(ax):
                     tok = f"a{i}" not in used and classify_axis(i, v, rest[i], mode == "stick")
                     if tok: return tok
+            if mode != "stick" and not digital:
+                digital = next((f"b{i}" for i, v in enumerate(bt) if v and f"b{i}" not in used), None) or \
+                          next((f"h{i}.{v}" for i, v in enumerate(ht) if v in (1, 2, 4, 8) and f"h{i}.{v}" not in used), None)
+                digital_at = time.time()
+            # triggers often fire a digital button before the axis is far enough: give the axis 1s
+            if digital and (mode == "digital" or time.time() - digital_at > 1):
+                return digital
             time.sleep(0.01)
+        return digital
 
     def wait_release():
         while True:

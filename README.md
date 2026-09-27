@@ -43,10 +43,10 @@ Automatic Mapping** and pick **SDL-0: GameSir K1…**.
 If your controller reports the same GUID, you can skip the mapper and add this line:
 
 ```
-03001032373500008210000063010000,GameSir K1 (Mac),a:b0,b:b1,x:b3,y:b4,leftshoulder:b6,rightshoulder:b7,lefttrigger:b8,righttrigger:b9,back:b10,start:b11,guide:b12,leftstick:b13,rightstick:b14,dpup:h0.1,dpdown:h0.4,dpleft:h0.8,dpright:h0.2,leftx:a0,lefty:a1,rightx:a2,righty:a3,platform:Mac OS X,
+03001032373500008210000063010000,GameSir K1 (Mac),a:b0,b:b1,x:b3,y:b4,leftshoulder:b6,rightshoulder:b7,lefttrigger:a5,righttrigger:a4,back:b10,start:b11,guide:b12,leftstick:b13,rightstick:b14,dpup:h0.1,dpdown:h0.4,dpleft:h0.8,dpright:h0.2,leftx:a0,lefty:a1,rightx:a2,righty:a3,platform:Mac OS X,
 ```
 
-LT/RT are mapped as digital buttons. They also report analog axes (LT `a5`, RT `a4`).
+LT/RT are analog axes (rest at -32768). The same mapping was proposed upstream in [mdqinc/SDL_GameControllerDB#996](https://github.com/mdqinc/SDL_GameControllerDB/pull/996).
 
 ## Uninstall
 
